@@ -1,4 +1,4 @@
-# CA証明書のプロビジョンとTLS証明書の生成
+# CA証明書のプロビジョニングとTLS証明書の生成
 
 In this lab you will provision a [PKI Infrastructure](https://en.wikipedia.org/wiki/Public_key_infrastructure) using CloudFlare's PKI toolkit, [cfssl](https://github.com/cloudflare/cfssl), then use it to bootstrap a Certificate Authority, and generate TLS certificates for the following components: etcd, kube-apiserver, kube-controller-manager, kube-scheduler, kubelet, and kube-proxy.
 
