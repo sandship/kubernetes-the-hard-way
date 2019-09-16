@@ -1,4 +1,4 @@
-# Prerequisites
+# 前提条件
 
 ## Google Cloud Platform
 

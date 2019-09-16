@@ -1,4 +1,4 @@
-# Smoke Test
+# スモークテスト
 
 In this lab you will complete a series of tasks to ensure your Kubernetes cluster is functioning correctly.
 

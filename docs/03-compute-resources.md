@@ -1,8 +1,8 @@
-# Provisioning Compute Resources
+# 計算資源のプロビジョン
 
 Kubernetes requires a set of machines to host the Kubernetes control plane and the worker nodes where containers are ultimately run. In this lab you will provision the compute resources required for running a secure and highly available Kubernetes cluster across a single [compute zone](https://cloud.google.com/compute/docs/regions-zones/regions-zones).
 
-> Ensure a default compute zone and region have been set as described in the [Prerequisites](01-prerequisites.md#set-a-default-compute-region-and-zone) lab.
+> Ensure a default compute zone and region have been set as described in the [前提条件](01-prerequisites.md#set-a-default-compute-region-and-zone) lab.
 
 ## Networking
 

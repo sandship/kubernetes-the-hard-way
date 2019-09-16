@@ -1,45 +1,47 @@
-# Kubernetes The Hard Way
+# Kubernetes The Hard Way(日本語版)
 
-This tutorial walks you through setting up Kubernetes the hard way. This guide is not for people looking for a fully automated command to bring up a Kubernetes cluster. If that's you then check out [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine), or the [Getting Started Guides](https://kubernetes.io/docs/setup).
+## 【注意】この翻訳は、1.15.3時点で動作が確認できているバージョンの凍結版です。動作確認できた次のバージョンがリリースされない限り、しばらくの間更新の予定はありません。
 
-Kubernetes The Hard Way is optimized for learning, which means taking the long route to ensure you understand each task required to bootstrap a Kubernetes cluster.
+本チュートリアルでは、Kubernetesを地道にセットアップする方法を説明します。本ガイドは、Kubernetesクラスターを立てるための自動化コマンドを探している人には向いていません。そういう人は、[Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine)や[Getting Started Guides](https://kubernetes.io/docs/setup)を御覧ください。
 
-> The results of this tutorial should not be viewed as production ready, and may receive limited support from the community, but don't let that stop you from learning!
+Kubernetes The Hard Wayは勉強に適しています。長い道のりを経て、Kubernetesクラスターを起動するのに必要な各タスクを理解してください。
+
+> このチュートリアルの結果はプロダクションレディではなく、コミュニティからのサポートも限られていますが、だからといって勉強しない理由にはなりません！
 
 ## Copyright
 
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
 
 
-## Target Audience
+## 対象者
 
-The target audience for this tutorial is someone planning to support a production Kubernetes cluster and wants to understand how everything fits together.
+このチュートリアルの対象読者は、Kubernetesの本番クラスターのサポートを予定していて、すべてがどのように連携しているかを理解したいという人です。
 
-## Cluster Details
+## クラスターの詳細
 
-Kubernetes The Hard Way guides you through bootstrapping a highly available Kubernetes cluster with end-to-end encryption between components and RBAC authentication.
+Kubernetes The Hard Wayは、コンポーネント間のエンドツーエンドの暗号化とRBAC認証を使用して、HAなKubernetesクラスターをブートストラップする手順を説明します。
 
-* [kubernetes](https://github.com/kubernetes/kubernetes) 1.15.3
-* [containerd](https://github.com/containerd/containerd) 1.2.9
+* [kubernetes](https://github.com/kubernetes/kubernetes) v1.15.3
+* [containerd](https://github.com/containerd/containerd) v1.2.9
 * [coredns](https://github.com/coredns/coredns) v1.6.3
 * [cni](https://github.com/containernetworking/cni) v0.7.1
 * [etcd](https://github.com/coreos/etcd) v3.4.0
 
 ## Labs
 
-This tutorial assumes you have access to the [Google Cloud Platform](https://cloud.google.com). While GCP is used for basic infrastructure requirements the lessons learned in this tutorial can be applied to other platforms.
+このチュートリアルは、Google Cloud Platformへのアクセス権があることを前提としています。GCPは基本的なインフラストラクチャ要件に使用されますが、このチュートリアルで学習したレッスンは他のプラットフォームにも適用できます。
 
-* [Prerequisites](docs/01-prerequisites.md)
-* [Installing the Client Tools](docs/02-client-tools.md)
-* [Provisioning Compute Resources](docs/03-compute-resources.md)
-* [Provisioning the CA and Generating TLS Certificates](docs/04-certificate-authority.md)
-* [Generating Kubernetes Configuration Files for Authentication](docs/05-kubernetes-configuration-files.md)
-* [Generating the Data Encryption Config and Key](docs/06-data-encryption-keys.md)
-* [Bootstrapping the etcd Cluster](docs/07-bootstrapping-etcd.md)
-* [Bootstrapping the Kubernetes Control Plane](docs/08-bootstrapping-kubernetes-controllers.md)
-* [Bootstrapping the Kubernetes Worker Nodes](docs/09-bootstrapping-kubernetes-workers.md)
-* [Configuring kubectl for Remote Access](docs/10-configuring-kubectl.md)
-* [Provisioning Pod Network Routes](docs/11-pod-network-routes.md)
-* [Deploying the DNS Cluster Add-on](docs/12-dns-addon.md)
-* [Smoke Test](docs/13-smoke-test.md)
-* [Cleaning Up](docs/14-cleanup.md)
+* [前提条件](docs/01-prerequisites.md)
+* [クライアントツールのインストール](docs/02-client-tools.md)
+* [計算資源のプロビジョン](docs/03-compute-resources.md)
+* [CA証明書のプロビジョンとTLS証明書の生成](docs/04-certificate-authority.md)
+* [認証用Kubernetes設定ファイルの生成](docs/05-kubernetes-configuration-files.md)
+* [データ暗号化の設定とキーの生成](docs/06-data-encryption-keys.md)
+* [etcdクラスターのブートストラップ](docs/07-bootstrapping-etcd.md)
+* [Kubernetesコントロールプレーンのブートストラップ](docs/08-bootstrapping-kubernetes-controllers.md)
+* [Kubenretesワーカーノードのブートストラップ](docs/09-bootstrapping-kubernetes-workers.md)
+* [リモートアクセス用のkubectl設定](docs/10-configuring-kubectl.md)
+* [Podネットワークルートのプロビジョン](docs/11-pod-network-routes.md)
+* [DNSクラスターアドオンのデプロイ](docs/12-dns-addon.md)
+* [スモークテスト](docs/13-smoke-test.md)
+* [お掃除](docs/14-cleanup.md)

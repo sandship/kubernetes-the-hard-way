@@ -1,4 +1,4 @@
-# Configuring kubectl for Remote Access
+# リモートアクセス用のkubectl設定
 
 In this lab you will generate a kubeconfig file for the `kubectl` command line utility based on the `admin` user credentials.
 
