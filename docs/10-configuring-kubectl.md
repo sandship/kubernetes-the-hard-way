@@ -1,14 +1,14 @@
 # リモートアクセス用のkubectl設定
 
-In this lab you will generate a kubeconfig file for the `kubectl` command line utility based on the `admin` user credentials.
+本実習では、`admin`ユーザーの認証情報に基づいた`kubectl`コマンド用のkubeconfigファイルを生成します。
 
-> Run the commands in this lab from the same directory used to generate the admin client certificates.
+> 本実習で使用するコマンドは、管理クライアント証明書の生成に使用したディレクトリと同じディレクトリから実行してください。
 
-## The Admin Kubernetes Configuration File
+## 管理者用Kubernetesコンフィグファイル
 
-Each kubeconfig requires a Kubernetes API Server to connect to. To support high availability the IP address assigned to the external load balancer fronting the Kubernetes API Servers will be used.
+kubeconfigには接続先のKubernetes APIサーバーが必要です。HAをサポートするために、Kubernetes APIサーバの前面に配置した外部ロードバランサに割り当てられたIPアドレスが使用されます。
 
-Generate a kubeconfig file suitable for authenticating as the `admin` user:
+`admin`ユーザとして認証するのに適したkubeconfigファイルを生成します:
 
 ```
 {
@@ -35,13 +35,13 @@ Generate a kubeconfig file suitable for authenticating as the `admin` user:
 
 ## 検証
 
-Check the health of the remote Kubernetes cluster:
+リモートにあるKubernetesクラスターの状態を確認します:
 
 ```
 kubectl get componentstatuses
 ```
 
-> output
+> 出力結果
 
 ```
 NAME                 STATUS    MESSAGE             ERROR
@@ -52,13 +52,13 @@ etcd-2               Healthy   {"health":"true"}
 etcd-0               Healthy   {"health":"true"}
 ```
 
-List the nodes in the remote Kubernetes cluster:
+リモートにあるKubernetesクラスター上にあるノードの一覧を表示します:
 
 ```
 kubectl get nodes
 ```
 
-> output
+> 出力結果
 
 ```
 NAME       STATUS   ROLES    AGE    VERSION
@@ -67,4 +67,4 @@ worker-1   Ready    <none>   2m9s   v1.15.3
 worker-2   Ready    <none>   2m9s   v1.15.3
 ```
 
-Next: [Provisioning Pod Network Routes](11-pod-network-routes.md)
+Next: [Podが使うネットワーク経路のプロビジョニング](11-pod-network-routes.md)
