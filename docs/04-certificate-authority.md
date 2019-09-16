@@ -107,7 +107,7 @@ admin.pem
 
 ### Kubeletクライアント証明書
 
-KubernetesはNode Authorizerと呼ばれる[専用の許可モード](https://kubernetes.io/docs/admin/authorization/node/)を使って、Kubeletが行うAPIリクエストを許可します。KubeletがNode Authorizerによる認証を受けるには、`system:nodes`グループに属していることをユーザ名`system:node:<ノード名>`で識別するクレデンシャルを使用する必要があります。本セクションでは、ノード承認者の要件を満たすKubernetesワーカーノードごとに証明書を作成します。
+KubernetesはNode Authorizerと呼ばれる[専用の許可モード](https://kubernetes.io/docs/admin/authorization/node/)を使って、Kubeletが行うAPIリクエストを許可します。KubeletがNode Authorizerによる認証を受けるには、`system:nodes`グループに属していることをユーザ名`system:node:<ノード名>`で識別するクレデンシャルを使用する必要があります。本セクションでは、各Kubernetesワーカーノード用にNode Authorizerの要件を満たす証明書を作成します。
 
 各ワーカーノード用の証明書と秘密鍵を生成します:
 
