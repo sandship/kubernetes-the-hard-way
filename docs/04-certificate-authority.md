@@ -346,7 +346,7 @@ kubernetes.pem
 
 ## サービスアカウントのキーペア
 
-Kubernetesのコントローラーマネージャーは、[サービスアカウントの管理](https://kubernetes.io/docs/admin/service-accounts-admin/))に関するドキュメントで説明されているように、キーペアを使用してサービスアカウントトークンを生成して署名します。
+Kubernetesのコントローラーマネージャーは、[サービスアカウントの管理](https://kubernetes.io/docs/admin/service-accounts-admin/)に関するドキュメントで説明されているように、キーペアを使用してサービスアカウントトークンを生成して署名します。
 
 `service-account`用クライアント証明書と秘密鍵を生成します:
 

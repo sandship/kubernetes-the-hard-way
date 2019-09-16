@@ -4,7 +4,7 @@
 
 本実習では、ノードのPod CIDR範囲をノードの内部IPアドレスにマップするための経路を各ワーカーノード上に作成します。
 
-> Kubernetesのネットワーキングモデルを実装する方法は[他にも]((https://kubernetes.io/docs/concepts/cluster-administration/networking/#how-to-achieve-this) )あります。
+> Kubernetesのネットワーキングモデルを実装する方法は[他にも](https://kubernetes.io/docs/concepts/cluster-administration/networking/#how-to-achieve-this)あります。
 
 ## ルーティングテーブル
 

@@ -1,19 +1,19 @@
 # スモークテスト
 
-In this lab you will complete a series of tasks to ensure your Kubernetes cluster is functioning correctly.
+本実習では、Kubernetesクラスターが正常に機能していることを確認するために必要な一連のタスクを実行します。
 
-## Data Encryption
+## データの暗号化
 
-In this section you will verify the ability to [encrypt secret data at rest](https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/#verifying-that-data-is-encrypted).
+本セクションでは、[保存されている秘密データを暗号化する](https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/#verifying-that-data-is-encrypted)機能を確認します。
 
-Create a generic secret:
+一般的なSecretデータを作成する:
 
 ```
 kubectl create secret generic kubernetes-the-hard-way \
   --from-literal="mykey=mydata"
 ```
 
-Print a hexdump of the `kubernetes-the-hard-way` secret stored in etcd:
+etcdに保存されているsecretデータ`kubernets-the-hard-way`のhexdumpを表示します:
 
 ```
 gcloud compute ssh controller-0 \
@@ -25,7 +25,7 @@ gcloud compute ssh controller-0 \
   /registry/secrets/default/kubernetes-the-hard-way | hexdump -C"
 ```
 
-> output
+> 出力結果
 
 ```
 00000000  2f 72 65 67 69 73 74 72  79 2f 73 65 63 72 65 74  |/registry/secret|
@@ -45,61 +45,61 @@ gcloud compute ssh controller-0 \
 000000e0  6e bb 9d 3b e9 e5 2d 9e  3e 0a                    |n..;..-.>.|
 ```
 
-The etcd key should be prefixed with `k8s:enc:aescbc:v1:key1`, which indicates the `aescbc` provider was used to encrypt the data with the `key1` encryption key.
+etcd上のキーのプレフィックスには`k8s:enc:aescbc:v1:key1`が付いているはずです。これは、`aescbc`プロバイダが暗号化されたキー`key1`のデータを暗号化するために使用されたことを示します。
 
-## Deployments
+## Deployment
 
-In this section you will verify the ability to create and manage [Deployments](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/).
+本セクションでは、[Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)を作成および管理する機能を確認します。
 
-Create a deployment for the [nginx](https://nginx.org/en/) web server:
+[nginx](https://nginx.org/en/)のDeploymentを作成します:
 
 ```
 kubectl create deployment nginx --image=nginx
 ```
 
-List the pod created by the `nginx` deployment:
+Deploymentリソース`nginx`によって作られたPodの一覧を表示します:
 
 ```
 kubectl get pods -l app=nginx
 ```
 
-> output
+> 出力結果
 
 ```
 NAME                     READY   STATUS    RESTARTS   AGE
 nginx-554b9c67f9-vt5rn   1/1     Running   0          10s
 ```
 
-### Port Forwarding
+### ポート転送
 
-In this section you will verify the ability to access applications remotely using [port forwarding](https://kubernetes.io/docs/tasks/access-application-cluster/port-forward-access-application-cluster/).
+本セクションでは、[ポート転送](https://kubernetes.io/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)を使用してアプリケーションにリモートでアクセスする機能を確認します。
 
-Retrieve the full name of the `nginx` pod:
+Podリソース`nginx`のフルネームを取得します:
 
 ```
 POD_NAME=$(kubectl get pods -l app=nginx -o jsonpath="{.items[0].metadata.name}")
 ```
 
-Forward port `8080` on your local machine to port `80` of the `nginx` pod:
+`nginx`Podの`80`番ポートを、手元のマシンの`8080`番ポートに転送します:
 
 ```
 kubectl port-forward $POD_NAME 8080:80
 ```
 
-> output
+> 出力結果
 
 ```
 Forwarding from 127.0.0.1:8080 -> 80
 Forwarding from [::1]:8080 -> 80
 ```
 
-In a new terminal make an HTTP request using the forwarding address:
+新しいターミナルを開き、転送済アドレスを使ってHTTPリクエストを発行します:
 
 ```
 curl --head http://127.0.0.1:8080
 ```
 
-> output
+> 出力結果
 
 ```
 HTTP/1.1 200 OK
@@ -113,7 +113,7 @@ ETag: "5d5279b8-264"
 Accept-Ranges: bytes
 ```
 
-Switch back to the previous terminal and stop the port forwarding to the `nginx` pod:
+前のターミナルに戻り、`nginx`Podへのポート転送を停止します:
 
 ```
 Forwarding from 127.0.0.1:8080 -> 80
@@ -122,58 +122,58 @@ Handling connection for 8080
 ^C
 ```
 
-### Logs
+### ログ
 
-In this section you will verify the ability to [retrieve container logs](https://kubernetes.io/docs/concepts/cluster-administration/logging/).
+本セクションでは、[コンテナのログを取得](https://kubernetes.io/docs/concepts/cluster-administration/logging/)する機能を確認します。
 
-Print the `nginx` pod logs:
+`nginx`Podのログを表示します:
 
 ```
 kubectl logs $POD_NAME
 ```
 
-> output
+> 出力結果
 
 ```
 127.0.0.1 - - [14/Sep/2019:21:10:11 +0000] "HEAD / HTTP/1.1" 200 0 "-" "curl/7.52.1" "-"
 ```
 
-### Exec
+### コマンドの実行
 
-In this section you will verify the ability to [execute commands in a container](https://kubernetes.io/docs/tasks/debug-application-cluster/get-shell-running-container/#running-individual-commands-in-a-container).
+本セクションでは、[コンテナ内でコマンドが実行できる](https://kubernetes.io/docs/tasks/debug-application-cluster/get-shell-running-container/#running-individual-commands-in-a-container)ことを確認します。
 
-Print the nginx version by executing the `nginx -v` command in the `nginx` container:
+`nginx`コンテナで`nginx-v`コマンドを実行して、nginxバージョンを表示します:
 
 ```
 kubectl exec -ti $POD_NAME -- nginx -v
 ```
 
-> output
+> 出力結果
 
 ```
 nginx version: nginx/1.17.3
 ```
 
-## Services
+## サービス
 
-In this section you will verify the ability to expose applications using a [Service](https://kubernetes.io/docs/concepts/services-networking/service/).
+本セクションでは、[サービス](https://kubernetes.io/docs/concepts/services-networking/service/)を使用してアプリケーションを公開する機能を確認します。
 
-Expose the `nginx` deployment using a [NodePort](https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport) service:
+[NodePort](https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport)サービスを使用して`nginx`のDeploymentを公開します。
 
 ```
 kubectl expose deployment nginx --port 80 --type NodePort
 ```
 
-> The LoadBalancer service type can not be used because your cluster is not configured with [cloud provider integration](https://kubernetes.io/docs/getting-started-guides/scratch/#cloud-provider). Setting up cloud provider integration is out of scope for this tutorial.
+>クラスターが[クラウドプロバイダーインテグレーション](https://kubernetes.io/docs/getting-started-guides/scratch/#cloud-provider)で構成されていないため、サービスのtype:LoadBalancerを使用できません。クラウドプロバイダーインテグレーションのセットアップについては本チュートリアルの対象外です。
 
-Retrieve the node port assigned to the `nginx` service:
+`nginx`サービスに割り当てられたノード上のポートを取得します:
 
 ```
 NODE_PORT=$(kubectl get svc nginx \
   --output=jsonpath='{range .spec.ports[0]}{.nodePort}')
 ```
 
-Create a firewall rule that allows remote access to the `nginx` node port:
+`nginx`のノードポートへのアクセスを許可するファイアウォールルールを作成します:
 
 ```
 gcloud compute firewall-rules create kubernetes-the-hard-way-allow-nginx-service \
@@ -181,20 +181,20 @@ gcloud compute firewall-rules create kubernetes-the-hard-way-allow-nginx-service
   --network kubernetes-the-hard-way
 ```
 
-Retrieve the external IP address of a worker instance:
+ワーカーインスタンスの外部IPアドレスを取得します:
 
 ```
 EXTERNAL_IP=$(gcloud compute instances describe worker-0 \
   --format 'value(networkInterfaces[0].accessConfigs[0].natIP)')
 ```
 
-Make an HTTP request using the external IP address and the `nginx` node port:
+取得した外部IPアドレスと`nginx`のノードポートを使ってHTTPリクエストを発行します:
 
 ```
 curl -I http://${EXTERNAL_IP}:${NODE_PORT}
 ```
 
-> output
+> 出力結果
 
 ```
 HTTP/1.1 200 OK
@@ -208,4 +208,4 @@ ETag: "5d5279b8-264"
 Accept-Ranges: bytes
 ```
 
-Next: [Cleaning Up](14-cleanup.md)
+Next: [お掃除](14-cleanup.md)
