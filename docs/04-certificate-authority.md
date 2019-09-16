@@ -1,12 +1,12 @@
 # CA証明書のプロビジョニングとTLS証明書の生成
 
-In this lab you will provision a [PKI Infrastructure](https://en.wikipedia.org/wiki/Public_key_infrastructure) using CloudFlare's PKI toolkit, [cfssl](https://github.com/cloudflare/cfssl), then use it to bootstrap a Certificate Authority, and generate TLS certificates for the following components: etcd, kube-apiserver, kube-controller-manager, kube-scheduler, kubelet, and kube-proxy.
+本実習では、CloudFlareのPKIツールキットである[cfssl](https://github.com/cloudflare/cfssl)を使用して[公開鍵基盤](https://ja.wikipedia.org/wiki/%E5%85%AC%E9%96%8B%E9%8D%B5%E5%9F%BA%E7%9B%A4)をプロビジョニングし、それを使用して認証機関を起動し、etcd、kube-apiserver、kube-controller-manager、kube-scheduler、kubelet、kube-proxyの各コンポーネントのTLS証明書を生成します。
 
 ## Certificate Authority
 
-In this section you will provision a Certificate Authority that can be used to generate additional TLS certificates.
+本セクションでは、追加のTLS証明書を生成するために使用できる認証局をプロビジョニングします。
 
-Generate the CA configuration file, certificate, and private key:
+CA構成ファイル、証明書、および秘密鍵を生成します:
 
 ```
 {
@@ -51,20 +51,20 @@ cfssl gencert -initca ca-csr.json | cfssljson -bare ca
 }
 ```
 
-Results:
+結果:
 
 ```
 ca-key.pem
 ca.pem
 ```
 
-## Client and Server Certificates
+## クライアント及びサーバー証明書
 
-In this section you will generate client and server certificates for each Kubernetes component and a client certificate for the Kubernetes `admin` user.
+本セクションでは、各Kubernetesコンポーネントのクライアント証明書とサーバー証明書、およびKubernetes管理ユーザーのクライアント証明書を生成します。
 
-### The Admin Client Certificate
+### 管理者用クライアント証明書
 
-Generate the `admin` client certificate and private key:
+`admin`クライアント証明書と秘密鍵を生成します:
 
 ```
 {
@@ -98,18 +98,18 @@ cfssl gencert \
 }
 ```
 
-Results:
+結果:
 
 ```
 admin-key.pem
 admin.pem
 ```
 
-### The Kubelet Client Certificates
+### Kubeletクライアント証明書
 
-Kubernetes uses a [special-purpose authorization mode](https://kubernetes.io/docs/admin/authorization/node/) called Node Authorizer, that specifically authorizes API requests made by [Kubelets](https://kubernetes.io/docs/concepts/overview/components/#kubelet). In order to be authorized by the Node Authorizer, Kubelets must use a credential that identifies them as being in the `system:nodes` group, with a username of `system:node:<nodeName>`. In this section you will create a certificate for each Kubernetes worker node that meets the Node Authorizer requirements.
+KubernetesはNode Authorizerと呼ばれる[専用の許可モード](https://kubernetes.io/docs/admin/authorization/node/)を使って、Kubeletが行うAPIリクエストを許可します。KubeletがNode Authorizerによる認証を受けるには、`system:nodes`グループに属していることをユーザ名`system:node:<ノード名>`で識別するクレデンシャルを使用する必要があります。本セクションでは、ノード承認者の要件を満たすKubernetesワーカーノードごとに証明書を作成します。
 
-Generate a certificate and private key for each Kubernetes worker node:
+各ワーカーノード用の証明書と秘密鍵を生成します:
 
 ```
 for instance in worker-0 worker-1 worker-2; do
@@ -148,7 +148,7 @@ cfssl gencert \
 done
 ```
 
-Results:
+結果:
 
 ```
 worker-0-key.pem
@@ -159,9 +159,9 @@ worker-2-key.pem
 worker-2.pem
 ```
 
-### The Controller Manager Client Certificate
+### Controller Manager用クライアント証明書
 
-Generate the `kube-controller-manager` client certificate and private key:
+`kube-controller-manager`クライアント証明書と秘密鍵を生成します:
 
 ```
 {
@@ -195,7 +195,7 @@ cfssl gencert \
 }
 ```
 
-Results:
+結果:
 
 ```
 kube-controller-manager-key.pem
@@ -203,9 +203,9 @@ kube-controller-manager.pem
 ```
 
 
-### The Kube Proxy Client Certificate
+### Kube Proxy用クライアント証明書
 
-Generate the `kube-proxy` client certificate and private key:
+`kube-proxy`クライアント証明書と秘密鍵を生成します:
 
 ```
 {
@@ -239,16 +239,16 @@ cfssl gencert \
 }
 ```
 
-Results:
+結果:
 
 ```
 kube-proxy-key.pem
 kube-proxy.pem
 ```
 
-### The Scheduler Client Certificate
+### Scheduler用クライアント証明書
 
-Generate the `kube-scheduler` client certificate and private key:
+`kube-scheduler`クライアント証明書と秘密鍵を生成します:
 
 ```
 {
@@ -282,7 +282,7 @@ cfssl gencert \
 }
 ```
 
-Results:
+結果:
 
 ```
 kube-scheduler-key.pem
