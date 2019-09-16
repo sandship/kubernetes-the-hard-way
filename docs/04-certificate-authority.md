@@ -290,11 +290,11 @@ kube-scheduler.pem
 ```
 
 
-### The Kubernetes API Server Certificate
+### KubernetesのAPIサーバー用証明書
 
-The `kubernetes-the-hard-way` static IP address will be included in the list of subject alternative names for the Kubernetes API Server certificate. This will ensure the certificate can be validated by remote clients.
+静的IPアドレス`kubernetes-the-hard-way`はKubernetesのAPIサーバー用証明書のSubject Alternative Name(SAN)リストに含まれます。これによって証明書をリモートクライアントで検証できるようになります。
 
-Generate the Kubernetes API Server certificate and private key:
+KubernetesのAPIサーバー用クライアント証明書と秘密鍵を生成します:
 
 ```
 {
@@ -335,20 +335,20 @@ cfssl gencert \
 }
 ```
 
-> The Kubernetes API server is automatically assigned the `kubernetes` internal dns name, which will be linked to the first IP address (`10.32.0.1`) from the address range (`10.32.0.0/24`) reserved for internal cluster services during the [control plane bootstrapping](08-bootstrapping-kubernetes-controllers.md#configure-the-kubernetes-api-server) lab.
+> KubernetesのAPIサーバーには自動的にKubernetesの内部DNS名が割り当てられます。この名前は、[コントロールプレーンのブートストラップ](08-bootstrapping-kubernetes-controllers.md#configure-the-kubernetes-api-server)で内部クラスタサービス用に予約されたアドレス範囲(`10.32.0.0/24`)の最初のIPアドレス(`10.32.0.1`)にリンクされます。
 
-Results:
+結果:
 
 ```
 kubernetes-key.pem
 kubernetes.pem
 ```
 
-## The Service Account Key Pair
+## サービスアカウントのキーペア
 
-The Kubernetes Controller Manager leverages a key pair to generate and sign service account tokens as described in the [managing service accounts](https://kubernetes.io/docs/admin/service-accounts-admin/) documentation.
+Kubernetesのコントローラーマネージャーは、[サービスアカウントの管理](https://kubernetes.io/docs/admin/service-accounts-admin/))に関するドキュメントで説明されているように、キーペアを使用してサービスアカウントトークンを生成して署名します。
 
-Generate the `service-account` certificate and private key:
+`service-account`用クライアント証明書と秘密鍵を生成します:
 
 ```
 {
@@ -382,7 +382,7 @@ cfssl gencert \
 }
 ```
 
-Results:
+結果:
 
 ```
 service-account-key.pem
@@ -390,9 +390,9 @@ service-account.pem
 ```
 
 
-## Distribute the Client and Server Certificates
+## クライアント及びサーバー用証明書の配布
 
-Copy the appropriate certificates and private keys to each worker instance:
+適切な証明書と秘密鍵を各ワーカー用インスタンスにコピーします:
 
 ```
 for instance in worker-0 worker-1 worker-2; do
@@ -400,7 +400,7 @@ for instance in worker-0 worker-1 worker-2; do
 done
 ```
 
-Copy the appropriate certificates and private keys to each controller instance:
+適切な証明書と秘密鍵を各コントロールプレーン用インスタンスにコピーします:
 
 ```
 for instance in controller-0 controller-1 controller-2; do
@@ -409,6 +409,6 @@ for instance in controller-0 controller-1 controller-2; do
 done
 ```
 
-> The `kube-proxy`, `kube-controller-manager`, `kube-scheduler`, and `kubelet` client certificates will be used to generate client authentication configuration files in the next lab.
+>`kube-proxy`、`kube-controller-manager`、`kube-scheduler`、および`kubelet`用クライアント証明書は、次の実習でクライアントの認証用設定ファイルを生成するために使用します。
 
-Next: [Generating Kubernetes Configuration Files for Authentication](05-kubernetes-configuration-files.md)
+Next: [認証用Kubernetes設定ファイルの生成](05-kubernetes-configuration-files.md)
