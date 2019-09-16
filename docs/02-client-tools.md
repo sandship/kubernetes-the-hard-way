@@ -1,15 +1,15 @@
 # クライアントツールのインストール
 
-In this lab you will install the command line utilities required to complete this tutorial: [cfssl](https://github.com/cloudflare/cfssl), [cfssljson](https://github.com/cloudflare/cfssl), and [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl).
+本実習では、チュートリアルの実行に必要なコマンドである[cfssl](https://github.com/cloudflare/cfssl)、[cfssljson](https://github.com/cloudflare/cfssl)、[kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl)をインストールします。
 
 
-## Install CFSSL
+## cfsslのインストール
 
-The `cfssl` and `cfssljson` command line utilities will be used to provision a [PKI Infrastructure](https://en.wikipedia.org/wiki/Public_key_infrastructure) and generate TLS certificates.
+[公開鍵基盤](https://ja.wikipedia.org/wiki/%E5%85%AC%E9%96%8B%E9%8D%B5%E5%9F%BA%E7%9B%A4)のプロビジョニングとTLS証明書の生成には、`cfssl`および`cfssljson`コマンドラインユーティリティが使用されます。
 
-Download and install `cfssl` and `cfssljson`:
+`cfssl`と`cfssljson`をダウンロードし、インストールします:
 
-### OS X
+### macOS
 
 ```
 curl -o cfssl https://storage.googleapis.com/kubernetes-the-hard-way/cfssl/darwin/cfssl
@@ -24,7 +24,7 @@ chmod +x cfssl cfssljson
 sudo mv cfssl cfssljson /usr/local/bin/
 ```
 
-Some OS X users may experience problems using the pre-built binaries in which case [Homebrew](https://brew.sh) might be a better option:
+macOSユーザーの中でビルド済みバイナリーに問題があった人は、[Homebrew](https://brew.sh)を使うと改善されるかもしれません:
 
 ```
 brew install cfssl
@@ -46,15 +46,15 @@ chmod +x cfssl cfssljson
 sudo mv cfssl cfssljson /usr/local/bin/
 ```
 
-### Verification
+### 検証
 
-Verify `cfssl` and `cfssljson` version 1.3.4 or higher is installed:
+インストールされた`cfssl`と`cfssljson`のバージョンが1.3.4以上であることを検証します:
 
 ```
 cfssl version
 ```
 
-> output
+> 出力結果
 
 ```
 Version: 1.3.4
@@ -71,11 +71,11 @@ Revision: dev
 Runtime: go1.13
 ```
 
-## Install kubectl
+## kubectlのインストール
 
 The `kubectl` command line utility is used to interact with the Kubernetes API Server. Download and install `kubectl` from the official release binaries:
 
-### OS X
+### macOS
 
 ```
 curl -o kubectl https://storage.googleapis.com/kubernetes-release/release/v1.15.3/bin/darwin/amd64/kubectl
@@ -103,18 +103,18 @@ chmod +x kubectl
 sudo mv kubectl /usr/local/bin/
 ```
 
-### Verification
+### 検証
 
-Verify `kubectl` version 1.15.3 or higher is installed:
+インストールされた`kubectl`のバージョンが1.15.3以上であることを検証します:
 
 ```
 kubectl version --client
 ```
 
-> output
+> 出力結果
 
 ```
 Client Version: version.Info{Major:"1", Minor:"15", GitVersion:"v1.15.3", GitCommit:"2d3c76f9091b6bec110a5e63777c332469e0cba2", GitTreeState:"clean", BuildDate:"2019-08-19T11:13:54Z", GoVersion:"go1.12.9", Compiler:"gc", Platform:"linux/amd64"}
 ```
 
-Next: [Provisioning Compute Resources](03-compute-resources.md)
+Next: [計算資源のプロビジョン](03-compute-resources.md)
