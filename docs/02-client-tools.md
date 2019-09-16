@@ -73,7 +73,7 @@ Runtime: go1.13
 
 ## kubectlのインストール
 
-The `kubectl` command line utility is used to interact with the Kubernetes API Server. Download and install `kubectl` from the official release binaries:
+`kubectl`コマンドは、KubernetesのAPIサーバーとの対話に使用されます。公式リリースバイナリから`kubectl`をダウンロードしてインストールします:
 
 ### macOS
 
