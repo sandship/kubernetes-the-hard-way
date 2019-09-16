@@ -1,16 +1,16 @@
 # DNSクラスターアドオンのデプロイ
 
-In this lab you will deploy the [DNS add-on](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/) which provides DNS based service discovery, backed by [CoreDNS](https://coredns.io/), to applications running inside the Kubernetes cluster.
+本実習では、[CoreDNS](https://coredns.io/)によってサポートされるDNSベースのサービスディスカバリを提供する[アドオン](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/)を、Kubernetesクラスター内で稼働するアプリケーションに導入します。
 
 ## The DNS Cluster Add-on
 
-Deploy the `coredns` cluster add-on:
+クラスターアドオン`coredns`をデプロイします:
 
 ```
 kubectl apply -f https://storage.googleapis.com/kubernetes-the-hard-way/coredns.yaml
 ```
 
-> output
+> 出力結果
 
 ```
 serviceaccount/coredns created
@@ -21,13 +21,13 @@ deployment.extensions/coredns created
 service/kube-dns created
 ```
 
-List the pods created by the `kube-dns` deployment:
+Deploymentリソース`kube-dns`によって作られたPodの一覧を表示します:
 
 ```
 kubectl get pods -l k8s-app=kube-dns -n kube-system
 ```
 
-> output
+> 出力結果
 
 ```
 NAME                       READY   STATUS    RESTARTS   AGE
@@ -37,38 +37,38 @@ coredns-699f8ddd77-gtcgb   1/1     Running   0          20s
 
 ## 検証
 
-Create a `busybox` deployment:
+Deploymentリソース`busybox`をデプロイします:
 
 ```
 kubectl run --generator=run-pod/v1 busybox --image=busybox:1.28 --command -- sleep 3600
 ```
 
-List the pod created by the `busybox` deployment:
+Deploymentリソース`busybox`によって作られたPodの一覧を表示します:
 
 ```
 kubectl get pods -l run=busybox
 ```
 
-> output
+> 出力結果
 
 ```
 NAME      READY   STATUS    RESTARTS   AGE
 busybox   1/1     Running   0          3s
 ```
 
-Retrieve the full name of the `busybox` pod:
+Podリソース`busybox`のフルネームを取得します:
 
 ```
 POD_NAME=$(kubectl get pods -l run=busybox -o jsonpath="{.items[0].metadata.name}")
 ```
 
-Execute a DNS lookup for the `kubernetes` service inside the `busybox` pod:
+`busybox`の中で`kubernetes`のサービスに対するDNSルックアップを実行します:
 
 ```
 kubectl exec -ti $POD_NAME -- nslookup kubernetes
 ```
 
-> output
+> 出力結果
 
 ```
 Server:    10.32.0.10
@@ -78,4 +78,4 @@ Name:      kubernetes
 Address 1: 10.32.0.1 kubernetes.default.svc.cluster.local
 ```
 
-Next: [Smoke Test](13-smoke-test.md)
+Next: [スモークテスト](13-smoke-test.md)

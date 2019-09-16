@@ -1,16 +1,16 @@
 # Podネットワークルートのプロビジョニング
 
-Pods scheduled to a node receive an IP address from the node's Pod CIDR range. At this point pods can not communicate with other pods running on different nodes due to missing network [routes](https://cloud.google.com/compute/docs/vpc/routes).
+ノードにスケジュールされたPodは、ノードが持つPod CIDR範囲からIPアドレスを受け取ります。この時点ではネットワーク[経路](https://cloud.google.com/compute/docs/vpc/routes)が欠落しているため、Podは異なるノード上で動作している他のPodと通信できません。
 
-In this lab you will create a route for each worker node that maps the node's Pod CIDR range to the node's internal IP address.
+本実習では、ノードのPod CIDR範囲をノードの内部IPアドレスにマップするための経路を各ワーカーノード上に作成します。
 
-> There are [other ways](https://kubernetes.io/docs/concepts/cluster-administration/networking/#how-to-achieve-this) to implement the Kubernetes networking model.
+> Kubernetesのネットワーキングモデルを実装する方法は[他にも]((https://kubernetes.io/docs/concepts/cluster-administration/networking/#how-to-achieve-this) )あります。
 
-## The Routing Table
+## ルーティングテーブル
 
-In this section you will gather the information required to create routes in the `kubernetes-the-hard-way` VPC network.
+ここでは、`kubernetes-the-hard-way`VPCネットワーク上に経路を作成するために必要な情報を収集します。
 
-Print the internal IP address and Pod CIDR range for each worker instance:
+各ワーカーインスタンスの内部IPアドレスとPod CIDR範囲を表示します:
 
 ```
 for instance in worker-0 worker-1 worker-2; do
@@ -19,7 +19,7 @@ for instance in worker-0 worker-1 worker-2; do
 done
 ```
 
-> output
+> 出力結果
 
 ```
 10.240.0.20 10.200.0.0/24
@@ -27,9 +27,9 @@ done
 10.240.0.22 10.200.2.0/24
 ```
 
-## Routes
+## 経路
 
-Create network routes for each worker instance:
+各ワーカーインスタンス用のネットワーク経路を作成します:
 
 ```
 for i in 0 1 2; do
@@ -40,13 +40,13 @@ for i in 0 1 2; do
 done
 ```
 
-List the routes in the `kubernetes-the-hard-way` VPC network:
+VPCネットワーク`kubernetes-the-hard-way`内の経路一覧を表示します:
 
 ```
 gcloud compute routes list --filter "network: kubernetes-the-hard-way"
 ```
 
-> output
+> 出力結果
 
 ```
 NAME                            NETWORK                  DEST_RANGE     NEXT_HOP                  PRIORITY
@@ -57,4 +57,4 @@ kubernetes-route-10-200-1-0-24  kubernetes-the-hard-way  10.200.1.0/24  10.240.0
 kubernetes-route-10-200-2-0-24  kubernetes-the-hard-way  10.200.2.0/24  10.240.0.22               1000
 ```
 
-Next: [Deploying the DNS Cluster Add-on](12-dns-addon.md)
+Next: [DNSクラスターアドオンのデプロイ](12-dns-addon.md)
