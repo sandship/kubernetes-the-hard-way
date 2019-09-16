@@ -1,6 +1,6 @@
 # Kubernetes The Hard Way(日本語版)
 
-### 【注意】この翻訳は、1.15.3時点で動作が確認できているバージョンの凍結版です。動作確認できた次のバージョンがリリースされない限り、しばらくの間更新の予定はありません。
+### 【注意】この翻訳は、1.15.3時点で動作が確認できているバージョンの凍結版です。動作確認できた次のバージョンがリリースされない限り、しばらくの間更新の予定はありません。Typoや誤訳などを見つけた場合はPR、Issue[Twitter](https://twitter.com/_inductor_)にてお知らせください。
 
 本チュートリアルでは、Kubernetesを地道にセットアップする方法を説明します。本ガイドは、Kubernetesクラスターを立てるための自動化コマンドを探している人には向いていません。そういう人は、[Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine)や[Getting Started Guides](https://kubernetes.io/docs/setup)を御覧ください。
 
