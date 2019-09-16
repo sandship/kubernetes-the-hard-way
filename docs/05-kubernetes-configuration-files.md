@@ -192,7 +192,7 @@ admin.kubeconfig
 
 ## Kubernetesコンフィグファイルの配布
 
-適切な`kubelet`及び`kube-proxy`用kubeconfigファイルを各ワーカー用インスタンスにコピーします:
+適切な`kubelet`及び`kube-proxy`用kubeconfigファイルを各ワーカーノード用インスタンスにコピーします:
 
 ```
 for instance in worker-0 worker-1 worker-2; do

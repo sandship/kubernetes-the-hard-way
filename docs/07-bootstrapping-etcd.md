@@ -16,9 +16,9 @@ gcloud compute ssh controller-0
 
 ## etcdクラスター内単一メンバーのブートストラップ
 
-### etcdバイナリのダウンロードとインストール
+### etcdバイナリーのダウンロードとインストール
 
-[etcd](https://github.com/etcd-io/etcd)のGitHubプロジェクトから、公式のetcdリリースのバイナリをダウンロードします:
+[etcd](https://github.com/etcd-io/etcd)のGitHubプロジェクトから、公式のetcdリリースのバイナリーをダウンロードします:
 
 ```
 wget -q --show-progress --https-only --timestamping \

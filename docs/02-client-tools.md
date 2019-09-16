@@ -73,7 +73,7 @@ Runtime: go1.13
 
 ## kubectlのインストール
 
-`kubectl`コマンドは、KubernetesのAPIサーバーとの対話に使用されます。公式リリースバイナリから`kubectl`をダウンロードしてインストールします:
+`kubectl`コマンドは、KubernetesのAPIサーバーとの対話に使用されます。公式リリースバイナリーから`kubectl`をダウンロードしてインストールします:
 
 ### macOS
 

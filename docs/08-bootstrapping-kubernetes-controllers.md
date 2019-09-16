@@ -22,9 +22,9 @@ Kubenretesのコンフィグ用ディレクトリを作成します:
 sudo mkdir -p /etc/kubernetes/config
 ```
 
-### Kubernetesコントローラー用バイナリのダウンロードとインストール
+### Kubernetesコントローラー用バイナリーのダウンロードとインストール
 
-Kubernetesの公式リリースバイナリをダウンロードします:
+Kubernetesの公式リリースバイナリーをダウンロードします:
 
 ```
 wget -q --show-progress --https-only --timestamping \

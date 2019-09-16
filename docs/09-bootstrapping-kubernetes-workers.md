@@ -1,10 +1,12 @@
 # Kubenretesワーカーノードのブートストラップ
 
-In this lab you will bootstrap three Kubernetes worker nodes. The following components will be installed on each node: [runc](https://github.com/opencontainers/runc), [container networking plugins](https://github.com/containernetworking/cni), [containerd](https://github.com/containerd/containerd), [kubelet](https://kubernetes.io/docs/admin/kubelet), and [kube-proxy](https://kubernetes.io/docs/concepts/cluster-administration/proxies).
+
+
+本実習では、3つのKubernetesワーカーノードをブートストラップします。各ノードには[runc](https://github.com/opencontainers/runc)、[CNI](https://github.com/containernetworking/cni), [containerd](https://github.com/containerd/containerd)、[kubelet](https://kubernetes.io/docs/admin/kubelet)および[kube-proxy](https://kubernetes.io/docs/concepts/cluster-administration/proxies)がインストールされます。
 
 ## 前提条件
 
-The commands in this lab must be run on each worker instance: `worker-0`, `worker-1`, and `worker-2`. Login to each worker instance using the `gcloud` command. Example:
+本実習のコマンドは`worker-0`, `worker-1`, and `worker-2`の各ワーカーノード用インスタンスで実行する必要があります。`gcloud`コマンドを使用して各コントローラインスタンスにログインします。例:
 
 ```
 gcloud compute ssh worker-0
@@ -14,9 +16,9 @@ gcloud compute ssh worker-0
 
 [tmux](https://github.com/tmux/tmux/wiki)を使用すると複数のインスタンスで同時にコマンドを実行できます。前提条件の[tmuxを使った並列なコマンド実行](01-prerequisites.md#tmuxを使った並列なコマンド実行)セクションを参照してください。
 
-## Provisioning a Kubernetes Worker Node
+## 単一Kubernetesワーカーノードのプロビジョニング
 
-Install the OS dependencies:
+OSの依存ライブラリをインストールします:
 
 ```
 {
@@ -25,27 +27,27 @@ Install the OS dependencies:
 }
 ```
 
-> The socat binary enables support for the `kubectl port-forward` command.
+> socatバイナリーは`kubectl port-forward`コマンドのサポートを有効にします。
 
-### Disable Swap
+### Swapの無効化
 
-By default the kubelet will fail to start if [swap](https://help.ubuntu.com/community/SwapFaq) is enabled. It is [recommended](https://github.com/kubernetes/kubernetes/issues/7294) that swap be disabled to ensure Kubernetes can provide proper resource allocation and quality of service.
+デフォルトで[swap](https://help.ubuntu.com/community/SwapFaq)が有効になっている場合、kubeletの起動は失敗します。Kubernetesが適切なリソース割り当てとサービス品質を提供できるように、swapを無効にすることを[推奨](https://github.com/kubernetes/kubernetes/issues/7294)します。
 
-Verify if swap is enabled:
+swapが有効になっているか確認します:
 
 ```
 sudo swapon --show
 ```
 
-If output is empthy then swap is not enabled. If swap is enabled run the following command to disable swap immediately:
+出力が空の場合、swapは有効なっていません。有効になっている場合は、次のコマンドを実行してただちに無効にします:
 
 ```
 sudo swapoff -a
 ```
 
-> To ensure swap remains off after reboot consult your Linux distro documentation.
+> インスタンスの再起動後もswapがオフのままになるようにするには、Linuxディストリビューションのドキュメントを参照してください。
 
-### Download and Install Worker Binaries
+### ワーカーバイナリーのダウンロードとインストール
 
 ```
 wget -q --show-progress --https-only --timestamping \
@@ -58,7 +60,7 @@ wget -q --show-progress --https-only --timestamping \
   https://storage.googleapis.com/kubernetes-release/release/v1.15.3/bin/linux/amd64/kubelet
 ```
 
-Create the installation directories:
+インストール用ディレクトリを作成します:
 
 ```
 sudo mkdir -p \
@@ -70,7 +72,7 @@ sudo mkdir -p \
   /var/run/kubernetes
 ```
 
-Install the worker binaries:
+ワーカーバイナリーをインストールします:
 
 ```
 {
@@ -85,16 +87,16 @@ Install the worker binaries:
 }
 ```
 
-### Configure CNI Networking
+### CNIのネットワーク設定
 
-Retrieve the Pod CIDR range for the current compute instance:
+現在作業中のインスタンスが持つPodのCIDR範囲を取得します:
 
 ```
 POD_CIDR=$(curl -s -H "Metadata-Flavor: Google" \
   http://metadata.google.internal/computeMetadata/v1/instance/attributes/pod-cidr)
 ```
 
-Create the `bridge` network configuration file:
+ネットワーク構成ファイル`bridge`を作成します:
 
 ```
 cat <<EOF | sudo tee /etc/cni/net.d/10-bridge.conf
@@ -116,7 +118,7 @@ cat <<EOF | sudo tee /etc/cni/net.d/10-bridge.conf
 EOF
 ```
 
-Create the `loopback` network configuration file:
+ネットワーク構成ファイル`loopback`を作成します:
 
 ```
 cat <<EOF | sudo tee /etc/cni/net.d/99-loopback.conf
@@ -128,9 +130,9 @@ cat <<EOF | sudo tee /etc/cni/net.d/99-loopback.conf
 EOF
 ```
 
-### Configure containerd
+### containerdの設定
 
-Create the `containerd` configuration file:
+`containerd`の設定ファイルを作成します:
 
 ```
 sudo mkdir -p /etc/containerd/
@@ -148,7 +150,7 @@ cat << EOF | sudo tee /etc/containerd/config.toml
 EOF
 ```
 
-Create the `containerd.service` systemd unit file:
+systemdユニットファイル`containerd.service`を作成します:
 
 ```
 cat <<EOF | sudo tee /etc/systemd/system/containerd.service
@@ -174,7 +176,7 @@ WantedBy=multi-user.target
 EOF
 ```
 
-### Configure the Kubelet
+### Kubeletの設定
 
 ```
 {
@@ -184,7 +186,7 @@ EOF
 }
 ```
 
-Create the `kubelet-config.yaml` configuration file:
+設定ファイル`kubelet-config.yaml`を作成します:
 
 ```
 cat <<EOF | sudo tee /var/lib/kubelet/kubelet-config.yaml
@@ -210,9 +212,9 @@ tlsPrivateKeyFile: "/var/lib/kubelet/${HOSTNAME}-key.pem"
 EOF
 ```
 
-> The `resolvConf` configuration is used to avoid loops when using CoreDNS for service discovery on systems running `systemd-resolved`. 
+> `resolvConf`の設定は、`system-resolved`を実行しているシステムのサービスディスカバリにCoreDNSを使用する場合に、ループを回避するために使用されます。
 
-Create the `kubelet.service` systemd unit file:
+systemdユニットファイル`kubelet.service`を作成します:
 
 ```
 cat <<EOF | sudo tee /etc/systemd/system/kubelet.service
@@ -240,13 +242,13 @@ WantedBy=multi-user.target
 EOF
 ```
 
-### Configure the Kubernetes Proxy
+### Kubernetes Proxyの設定
 
 ```
 sudo mv kube-proxy.kubeconfig /var/lib/kube-proxy/kubeconfig
 ```
 
-Create the `kube-proxy-config.yaml` configuration file:
+設定ファイル`kube-proxy-config.yaml`を作成します:
 
 ```
 cat <<EOF | sudo tee /var/lib/kube-proxy/kube-proxy-config.yaml
@@ -259,7 +261,7 @@ clusterCIDR: "10.200.0.0/16"
 EOF
 ```
 
-Create the `kube-proxy.service` systemd unit file:
+systemdユニットファイル`kube-proxy.service`を作成します:
 
 ```
 cat <<EOF | sudo tee /etc/systemd/system/kube-proxy.service
@@ -278,7 +280,7 @@ WantedBy=multi-user.target
 EOF
 ```
 
-### Start the Worker Services
+### ワーカーサービスの起動
 
 ```
 {
@@ -288,20 +290,20 @@ EOF
 }
 ```
 
-> Remember to run the above commands on each worker node: `worker-0`, `worker-1`, and `worker-2`.
+> 上記のコマンドは各コントローラノード`worker-0`、`worker-1`、`worker-2`にて忘れずに実行してください。
 
 ## 検証
 
-> The compute instances created in this tutorial will not have permission to complete this section. Run the following commands from the same machine used to create the compute instances.
+> 本チュートリアルで作成したインスタンスには、このセクションを完了する権限がありません。インスタンスの作成に使用したのと同じ作業マシンから次のコマンドを実行します。
 
-List the registered Kubernetes nodes:
+登録されたKubernetesのノード一覧を表示します:
 
 ```
 gcloud compute ssh controller-0 \
   --command "kubectl get nodes --kubeconfig admin.kubeconfig"
 ```
 
-> output
+> 出力結果
 
 ```
 NAME       STATUS   ROLES    AGE   VERSION
@@ -310,4 +312,4 @@ worker-1   Ready    <none>   15s   v1.15.3
 worker-2   Ready    <none>   15s   v1.15.3
 ```
 
-Next: [Configuring kubectl for Remote Access](10-configuring-kubectl.md)
+Next: [リモートアクセス用のkubectl設定](10-configuring-kubectl.md)
