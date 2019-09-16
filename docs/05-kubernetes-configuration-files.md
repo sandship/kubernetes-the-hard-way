@@ -8,7 +8,7 @@
 
 ### Kubernetesの公開IPアドレス
 
-kubeconfigには接続先のKubernetes APIサーバーが必要です。HAをサポートするために、Kubernetes APIサーバの前面に配置した外部ロードバランサに割り当てられたIPアドレスが使用されます。
+kubeconfigには接続先のKubernetes APIサーバーが必要です。高可用性をサポートするために、Kubernetes APIサーバの前面に配置した外部ロードバランサに割り当てられたIPアドレスが使用されます。
 
 静的IPアドレス`kubernetes-the-hard`を取得します:
 

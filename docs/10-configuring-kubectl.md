@@ -6,7 +6,7 @@
 
 ## 管理者用Kubernetesコンフィグファイル
 
-kubeconfigには接続先のKubernetes APIサーバーが必要です。HAをサポートするために、Kubernetes APIサーバの前面に配置した外部ロードバランサに割り当てられたIPアドレスが使用されます。
+kubeconfigには接続先のKubernetes APIサーバーが必要です。高可用性をサポートするために、Kubernetes APIサーバの前面に配置した外部ロードバランサに割り当てられたIPアドレスが使用されます。
 
 `admin`ユーザとして認証するのに適したkubeconfigファイルを生成します:
 

@@ -19,7 +19,7 @@ Kubernetes The Hard Wayは勉強に適しています。長い道のりを経て
 
 ## クラスターの詳細
 
-Kubernetes The Hard Wayは、コンポーネント間のエンドツーエンドの暗号化とRBAC認証を使用して、HAなKubernetesクラスターをブートストラップする手順を説明します。
+Kubernetes The Hard Wayは、コンポーネント間のエンドツーエンドの暗号化とRBAC認証を使用して、可用性の高いKubernetesクラスターをブートストラップする手順を説明します。
 
 * [kubernetes](https://github.com/kubernetes/kubernetes) v1.15.3
 * [containerd](https://github.com/containerd/containerd) v1.2.9

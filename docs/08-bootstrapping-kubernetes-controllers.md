@@ -1,6 +1,6 @@
 # Kubernetesコントロールプレーンのブートストラップ
 
-本実習では、3つのインスタンスでコントロールプレーンをブートストラップしてHA構成を実現します。また、KubernetesのAPIサーバーをリモートクライアントに公開する外部ロードバランサも作成します。各ノードには、Kubernetes API Server、Scheduler、Controller Managerの各コンポーネントがインストールされます。
+本実習では、3つのインスタンスでコントロールプレーンをブートストラップして可用性の高い構成を実現します。また、KubernetesのAPIサーバーをリモートクライアントに公開する外部ロードバランサも作成します。各ノードには、Kubernetes API Server、Scheduler、Controller Managerの各コンポーネントがインストールされます。
 
 ## 前提条件
 
