@@ -1,10 +1,10 @@
 # お掃除
 
-In this lab you will delete the compute resources created during this tutorial.
+本実習では、チュートリアルで作成した計算資源を削除します。
 
 ## Compute Instances
 
-Delete the controller and worker compute instances:
+コントロールプレーン及びワーカーノード用に作成したインスタンスを削除します:
 
 ```
 gcloud -q compute instances delete \
@@ -13,9 +13,9 @@ gcloud -q compute instances delete \
   --zone $(gcloud config get-value compute/zone)
 ```
 
-## Networking
+## ネットワーク
 
-Delete the external load balancer network resources:
+外部ロードバランサーリソースを削除します:
 
 ```
 {
@@ -30,7 +30,7 @@ Delete the external load balancer network resources:
 }
 ```
 
-Delete the `kubernetes-the-hard-way` firewall rules:
+ファイアウォールルール`kubernetes-the-hard-way`を削除します:
 
 ```
 gcloud -q compute firewall-rules delete \
@@ -40,7 +40,7 @@ gcloud -q compute firewall-rules delete \
   kubernetes-the-hard-way-allow-health-check
 ```
 
-Delete the `kubernetes-the-hard-way` network VPC:
+ネットワークVPC`kubernetes-the-hard-way`を削除します:
 
 ```
 {
