@@ -4,7 +4,7 @@ Kubernetesのコンポーネントはステートレスで、クラスターの�
 
 ## 前提条件
 
-本実習のコマンドは`controller-0`、`controller-1`、`controller-2`の各コントロールプレーン用インスタンスで実行する必要があります。gcloudコマンドを使用して各コントローラインスタンスにログインします。例:
+本実習のコマンドは`controller-0`、`controller-1`、`controller-2`の各コントロールプレーン用インスタンスで実行する必要があります。`gcloud`コマンドを使用して各コントローラインスタンスにログインします。例:
 
 ```
 gcloud compute ssh controller-0

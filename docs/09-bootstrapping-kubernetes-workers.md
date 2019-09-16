@@ -10,9 +10,9 @@ The commands in this lab must be run on each worker instance: `worker-0`, `worke
 gcloud compute ssh worker-0
 ```
 
-### Running commands in parallel with tmux
+### tmuxを使った並列なコマンド実行
 
-[tmux](https://github.com/tmux/tmux/wiki) can be used to run commands on multiple compute instances at the same time. See the [Running commands in parallel with tmux](01-prerequisites.md#running-commands-in-parallel-with-tmux) section in 前提条件のページ.
+[tmux](https://github.com/tmux/tmux/wiki)を使用すると複数のインスタンスで同時にコマンドを実行できます。前提条件の[tmuxを使った並列なコマンド実行](01-prerequisites.md#tmuxを使った並列なコマンド実行)セクションを参照してください。
 
 ## Provisioning a Kubernetes Worker Node
 
