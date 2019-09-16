@@ -290,7 +290,7 @@ EOF
 
 > Remember to run the above commands on each worker node: `worker-0`, `worker-1`, and `worker-2`.
 
-## Verification
+## 検証
 
 > The compute instances created in this tutorial will not have permission to complete this section. Run the following commands from the same machine used to create the compute instances.
 

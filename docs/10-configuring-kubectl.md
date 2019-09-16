@@ -33,7 +33,7 @@ Generate a kubeconfig file suitable for authenticating as the `admin` user:
 }
 ```
 
-## Verification
+## 検証
 
 Check the health of the remote Kubernetes cluster:
 

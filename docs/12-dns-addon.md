@@ -35,7 +35,7 @@ coredns-699f8ddd77-94qv9   1/1     Running   0          20s
 coredns-699f8ddd77-gtcgb   1/1     Running   0          20s
 ```
 
-## Verification
+## 検証
 
 Create a `busybox` deployment:
 

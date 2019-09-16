@@ -243,7 +243,7 @@ sudo systemctl restart nginx
 sudo systemctl enable nginx
 ```
 
-### Verification
+### 検証
 
 ```
 kubectl get componentstatuses --kubeconfig admin.kubeconfig
@@ -379,7 +379,7 @@ Create the external load balancer network resources:
 }
 ```
 
-### Verification
+### 検証
 
 > The compute instances created in this tutorial will not have permission to complete this section. **Run the following commands from the same machine used to create the compute instances**.
 

@@ -1,31 +1,31 @@
 # etcdクラスターのブートストラップ
 
-Kubernetes components are stateless and store cluster state in [etcd](https://github.com/etcd-io/etcd). In this lab you will bootstrap a three node etcd cluster and configure it for high availability and secure remote access.
+Kubernetesのコンポーネントはステートレスで、クラスターの状態を[etcd](https://github.com/etcd-io/etcd)に格納します。本実習では、3ノードのetcdクラスターをブートストラップし、高可用性と安全なリモートアクセスを実現するように構成します。
 
 ## 前提条件
 
-The commands in this lab must be run on each controller instance: `controller-0`, `controller-1`, and `controller-2`. Login to each controller instance using the `gcloud` command. Example:
+本実習のコマンドは`controller-0`、`controller-1`、`controller-2`の各コントロールプレーン用インスタンスで実行する必要があります。gcloudコマンドを使用して各コントローラインスタンスにログインします。例:
 
 ```
 gcloud compute ssh controller-0
 ```
 
-### Running commands in parallel with tmux
+### tmuxを使った並列なコマンド実行
 
-[tmux](https://github.com/tmux/tmux/wiki) can be used to run commands on multiple compute instances at the same time. See the [Running commands in parallel with tmux](01-prerequisites.md#running-commands-in-parallel-with-tmux) section in 前提条件のページ.
+[tmux](https://github.com/tmux/tmux/wiki)を使用すると複数のインスタンスで同時にコマンドを実行できます。前提条件の[tmuxを使った並列なコマンド実行](01-prerequisites.md#tmuxを使った並列なコマンド実行)セクションを参照してください。
 
-## Bootstrapping an etcd Cluster Member
+## etcdクラスター内単一メンバーのブートストラップ
 
-### Download and Install the etcd Binaries
+### etcdバイナリのダウンロードとインストール
 
-Download the official etcd release binaries from the [etcd](https://github.com/etcd-io/etcd) GitHub project:
+[etcd](https://github.com/etcd-io/etcd)のGitHubプロジェクトから、公式のetcdリリースのバイナリをダウンロードします:
 
 ```
 wget -q --show-progress --https-only --timestamping \
   "https://github.com/etcd-io/etcd/releases/download/v3.4.0/etcd-v3.4.0-linux-amd64.tar.gz"
 ```
 
-Extract and install the `etcd` server and the `etcdctl` command line utility:
+`etcd`サーバと`etcdctl`コマンドを展開してインストールします:
 
 ```
 {
@@ -34,7 +34,7 @@ Extract and install the `etcd` server and the `etcdctl` command line utility:
 }
 ```
 
-### Configure the etcd Server
+### etcdサーバーの設定
 
 ```
 {
@@ -43,20 +43,20 @@ Extract and install the `etcd` server and the `etcdctl` command line utility:
 }
 ```
 
-The instance internal IP address will be used to serve client requests and communicate with etcd cluster peers. Retrieve the internal IP address for the current compute instance:
+クライアントリクエストの処理とetcdクラスター・ピアとの通信にはインスタンスの内部IPアドレスが使用されます。以下のコマンドで現在作業中のインスタンスが持つ内部IPアドレスを取得します:
 
 ```
 INTERNAL_IP=$(curl -s -H "Metadata-Flavor: Google" \
   http://metadata.google.internal/computeMetadata/v1/instance/network-interfaces/0/ip)
 ```
 
-Each etcd member must have a unique name within an etcd cluster. Set the etcd name to match the hostname of the current compute instance:
+各etcdメンバーには、etcdクラスタ内で一意の名前を付ける必要があります。現在作業中のインスタンスが持つホスト名と一致するようにetcd名を設定します:
 
 ```
 ETCD_NAME=$(hostname -s)
 ```
 
-Create the `etcd.service` systemd unit file:
+systemdユニットファイル`etcd.service`を作成します:
 
 ```
 cat <<EOF | sudo tee /etc/systemd/system/etcd.service
@@ -92,7 +92,7 @@ WantedBy=multi-user.target
 EOF
 ```
 
-### Start the etcd Server
+### etcdサーバーの起動
 
 ```
 {
@@ -102,11 +102,11 @@ EOF
 }
 ```
 
-> Remember to run the above commands on each controller node: `controller-0`, `controller-1`, and `controller-2`.
+> 上記のコマンドは各コントローラノード`controller-0`、`controller-1`、`controller-2`にて忘れずに実行してください。
 
-## Verification
+## 検証
 
-List the etcd cluster members:
+etcdのクラスターメンバーの一覧を表示します:
 
 ```
 sudo ETCDCTL_API=3 etcdctl member list \
@@ -116,7 +116,7 @@ sudo ETCDCTL_API=3 etcdctl member list \
   --key=/etc/etcd/kubernetes-key.pem
 ```
 
-> output
+> 出力結果
 
 ```
 3a57933972cb5131, started, controller-2, https://10.240.0.12:2380, https://10.240.0.12:2379
@@ -124,4 +124,4 @@ f98dc20bce6225a0, started, controller-0, https://10.240.0.10:2380, https://10.24
 ffed16798470cab5, started, controller-1, https://10.240.0.11:2380, https://10.240.0.11:2379
 ```
 
-Next: [Bootstrapping the Kubernetes Control Plane](08-bootstrapping-kubernetes-controllers.md)
+Next: [Kubernetesコントロールプレーンのブートストラップ](08-bootstrapping-kubernetes-controllers.md)

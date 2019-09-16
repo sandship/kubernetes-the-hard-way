@@ -1,6 +1,6 @@
 # 計算資源のプロビジョニング
 
-Kubernetesには、コントロールプレーンとコンテナが最終的に実行されるワーカーノードをホストするマシンのセットが必要です。本実習では、安全で可用性の高いKubernetesクラスターを単一の[ゾーン]((https://cloud.google.com/compute/docs/regions-zones/regions-zones))で実行するために必要な計算資源をプロビジョニングします。
+Kubernetesには、コントロールプレーンとコンテナが最終的に実行されるワーカーノードをホストするマシンのセットが必要です。本実習では、安全で可用性の高いKubernetesクラスターを単一の[ゾーン](https://cloud.google.com/compute/docs/regions-zones/regions-zones)で実行するために必要な計算資源をプロビジョニングします。
 
 > デフォルトのゾーンおよびリージョンが、[前提条件](01-prerequisites.md#デフォルトのリージョンとゾーンの設定)ページの説明通りに設定されていることを確認してください。
 
