@@ -27,7 +27,7 @@ Kubernetes The Hard Wayは、コンポーネント間のエンドツーエンド
 * [cni](https://github.com/containernetworking/cni) v0.7.1
 * [etcd](https://github.com/coreos/etcd) v3.4.0
 
-## Labs
+## 実習内容
 
 本チュートリアルは、Google Cloud Platformへのアクセス権があることを前提としています。GCPは基本的なインフラストラクチャ要件に使用されますが、本チュートリアルで学習したレッスンは他のプラットフォームにも適用できます。
 
