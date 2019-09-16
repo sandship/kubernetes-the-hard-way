@@ -1,16 +1,16 @@
 # 認証用Kubernetes設定ファイルの生成
 
-In this lab you will generate [Kubernetes configuration files](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/), also known as kubeconfigs, which enable Kubernetes clients to locate and authenticate to the Kubernetes API Servers.
+本実習では[Kubernetesのコンフィグファイル](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/)(kubeconfigとも呼ばれます)を生成します。これにより、KubernetesクライアントがKubernetesのAPIサーバーを特定して認証できるようになります。
 
-## Client Authentication Configs
+## クライアント認証コンフィグ
 
-In this section you will generate kubeconfig files for the `controller manager`, `kubelet`, `kube-proxy`, and `scheduler` clients and the `admin` user.
+本セクションでは、`controller manager`、`kubelet`、`kube-proxy`、および`scheduler`のクライアントと`admin`ユーザー用のkubeconfigファイルを生成します。
 
-### Kubernetes Public IP Address
+### Kubernetesの公開IPアドレス
 
-Each kubeconfig requires a Kubernetes API Server to connect to. To support high availability the IP address assigned to the external load balancer fronting the Kubernetes API Servers will be used.
+kubeconfigには接続先のKubernetes APIサーバーが必要です。HAをサポートするために、Kubernetes APIサーバの前面に配置した外部ロードバランサに割り当てられたIPアドレスが使用されます。
 
-Retrieve the `kubernetes-the-hard-way` static IP address:
+静的IPアドレス`kubernetes-the-hard`を取得します:
 
 ```
 KUBERNETES_PUBLIC_ADDRESS=$(gcloud compute addresses describe kubernetes-the-hard-way \
@@ -18,13 +18,13 @@ KUBERNETES_PUBLIC_ADDRESS=$(gcloud compute addresses describe kubernetes-the-har
   --format 'value(address)')
 ```
 
-### The kubelet Kubernetes Configuration File
+### kubelet用Kubernetesコンフィグファイル
 
-When generating kubeconfig files for Kubelets the client certificate matching the Kubelet's node name must be used. This will ensure Kubelets are properly authorized by the Kubernetes [Node Authorizer](https://kubernetes.io/docs/admin/authorization/node/).
+kubelet用のkubeconfigファイルを生成する際、kubeletのノード名に一致するクライアント証明書を使用する必要があります。これにより、kubeletがKubernetes [Node Authorizer](https://kubernetes.io/docs/admin/authorization/node/)によって適切に許可されます。
 
-> The following commands must be run in the same directory used to generate the SSL certificates during the [Generating TLS Certificates](04-certificate-authority.md) lab.
+> 次のコマンドは、[TLS証明書の生成](04-certificate-authority.md)でSSL証明書を生成するときに使用したディレクトリと同じディレクトリで実行する必要があります。
 
-Generate a kubeconfig file for each worker node:
+各ワーカーノード用kubeconfigファイルを生成します:
 
 ```
 for instance in worker-0 worker-1 worker-2; do
@@ -49,7 +49,7 @@ for instance in worker-0 worker-1 worker-2; do
 done
 ```
 
-Results:
+結果:
 
 ```
 worker-0.kubeconfig
@@ -57,9 +57,9 @@ worker-1.kubeconfig
 worker-2.kubeconfig
 ```
 
-### The kube-proxy Kubernetes Configuration File
+### kube-proxy用Kubernetesコンフィグファイル
 
-Generate a kubeconfig file for the `kube-proxy` service:
+`kube-proxy`サービス用kubeconfigファイルを生成します:
 
 ```
 {
@@ -84,15 +84,15 @@ Generate a kubeconfig file for the `kube-proxy` service:
 }
 ```
 
-Results:
+結果:
 
 ```
 kube-proxy.kubeconfig
 ```
 
-### The kube-controller-manager Kubernetes Configuration File
+### kube-controller-manager用Kubernetesコンフィグファイル
 
-Generate a kubeconfig file for the `kube-controller-manager` service:
+`kube-controller-manager`サービス用kubeconfigファイルを生成します:
 
 ```
 {
@@ -117,16 +117,16 @@ Generate a kubeconfig file for the `kube-controller-manager` service:
 }
 ```
 
-Results:
+結果:
 
 ```
 kube-controller-manager.kubeconfig
 ```
 
 
-### The kube-scheduler Kubernetes Configuration File
+### kube-scheduler用Kubernetesコンフィグファイル
 
-Generate a kubeconfig file for the `kube-scheduler` service:
+`kube-scheduler`サービス用kubeconfigファイルを生成します:
 
 ```
 {
@@ -151,15 +151,15 @@ Generate a kubeconfig file for the `kube-scheduler` service:
 }
 ```
 
-Results:
+結果:
 
 ```
 kube-scheduler.kubeconfig
 ```
 
-### The admin Kubernetes Configuration File
+### admin用Kubernetesコンフィグファイル
 
-Generate a kubeconfig file for the `admin` user:
+`admin`ユーザー用kubeconfigファイルを生成します:
 
 ```
 {
@@ -184,18 +184,15 @@ Generate a kubeconfig file for the `admin` user:
 }
 ```
 
-Results:
+結果:
 
 ```
 admin.kubeconfig
 ```
 
+## Kubernetesコンフィグファイルの配布
 
-## 
-
-## Distribute the Kubernetes Configuration Files
-
-Copy the appropriate `kubelet` and `kube-proxy` kubeconfig files to each worker instance:
+適切な`kubelet`及び`kube-proxy`用kubeconfigファイルを各ワーカー用インスタンスにコピーします:
 
 ```
 for instance in worker-0 worker-1 worker-2; do
@@ -203,7 +200,7 @@ for instance in worker-0 worker-1 worker-2; do
 done
 ```
 
-Copy the appropriate `kube-controller-manager` and `kube-scheduler` kubeconfig files to each controller instance:
+適切な`kube-controller-manager`及び`kube-scheduler`用kubeconfigファイルをコントロールプレーン用インスタンスにコピーします:
 
 ```
 for instance in controller-0 controller-1 controller-2; do
@@ -211,4 +208,4 @@ for instance in controller-0 controller-1 controller-2; do
 done
 ```
 
-Next: [Generating the Data Encryption Config and Key](06-data-encryption-keys.md)
+Next: [データ暗号化の設定とキーの生成](06-data-encryption-keys.md)
