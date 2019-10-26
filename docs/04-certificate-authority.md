@@ -8,7 +8,7 @@
 
 CA構成ファイル、証明書、および秘密鍵を生成します:
 
-```
+```sh
 {
 
 cat > ca-config.json <<EOF
@@ -66,7 +66,7 @@ ca.pem
 
 `admin`クライアント証明書と秘密鍵を生成します:
 
-```
+```sh
 {
 
 cat > admin-csr.json <<EOF
@@ -111,8 +111,8 @@ KubernetesはNode Authorizerと呼ばれる[専用の許可モード](https://ku
 
 各ワーカーノード用の証明書と秘密鍵を生成します:
 
-```
-for instance in worker-0 worker-1 worker-2; do
+```sh
+for instance in worker-{0..2}; do
 cat > ${instance}-csr.json <<EOF
 {
   "CN": "system:node:${instance}",
@@ -163,7 +163,7 @@ worker-2.pem
 
 `kube-controller-manager`クライアント証明書と秘密鍵を生成します:
 
-```
+```sh
 {
 
 cat > kube-controller-manager-csr.json <<EOF
@@ -207,7 +207,7 @@ kube-controller-manager.pem
 
 `kube-proxy`クライアント証明書と秘密鍵を生成します:
 
-```
+```sh
 {
 
 cat > kube-proxy-csr.json <<EOF
@@ -250,7 +250,7 @@ kube-proxy.pem
 
 `kube-scheduler`クライアント証明書と秘密鍵を生成します:
 
-```
+```sh
 {
 
 cat > kube-scheduler-csr.json <<EOF
@@ -296,7 +296,7 @@ kube-scheduler.pem
 
 KubernetesのAPIサーバー用クライアント証明書と秘密鍵を生成します:
 
-```
+```sh
 {
 
 KUBERNETES_PUBLIC_ADDRESS=$(gcloud compute addresses describe kubernetes-the-hard-way \
@@ -350,7 +350,7 @@ Kubernetesのコントローラーマネージャーは、[サービスアカウ
 
 `service-account`用クライアント証明書と秘密鍵を生成します:
 
-```
+```sh
 {
 
 cat > service-account-csr.json <<EOF
@@ -394,16 +394,16 @@ service-account.pem
 
 適切な証明書と秘密鍵を各ワーカーノード用インスタンスにコピーします:
 
-```
-for instance in worker-0 worker-1 worker-2; do
+```sh
+for instance in worker-{0..2}; do
   gcloud compute scp ca.pem ${instance}-key.pem ${instance}.pem ${instance}:~/
 done
 ```
 
 適切な証明書と秘密鍵を各コントロールプレーン用インスタンスにコピーします:
 
-```
-for instance in controller-0 controller-1 controller-2; do
+```sh
+for instance in controller-{0..2}; do
   gcloud compute scp ca.pem ca-key.pem kubernetes-key.pem kubernetes.pem \
     service-account-key.pem service-account.pem ${instance}:~/
 done

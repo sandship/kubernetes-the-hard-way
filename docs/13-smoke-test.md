@@ -82,7 +82,7 @@ POD_NAME=$(kubectl get pods -l app=nginx -o jsonpath="{.items[0].metadata.name}"
 
 `nginx`Podの`80`番ポートを、手元のマシンの`8080`番ポートに転送します:
 
-```
+```sh
 kubectl port-forward $POD_NAME 8080:80
 ```
 
@@ -128,7 +128,7 @@ Handling connection for 8080
 
 `nginx`Podのログを表示します:
 
-```
+```sh
 kubectl logs $POD_NAME
 ```
 
@@ -144,7 +144,7 @@ kubectl logs $POD_NAME
 
 `nginx`コンテナで`nginx-v`コマンドを実行して、nginxバージョンを表示します:
 
-```
+```sh
 kubectl exec -ti $POD_NAME -- nginx -v
 ```
 
@@ -175,7 +175,7 @@ NODE_PORT=$(kubectl get svc nginx \
 
 `nginx`のノードポートへのアクセスを許可するファイアウォールルールを作成します:
 
-```
+```sh
 gcloud compute firewall-rules create kubernetes-the-hard-way-allow-nginx-service \
   --allow=tcp:${NODE_PORT} \
   --network kubernetes-the-hard-way
@@ -190,7 +190,7 @@ EXTERNAL_IP=$(gcloud compute instances describe worker-0 \
 
 取得した外部IPアドレスと`nginx`のノードポートを使ってHTTPリクエストを発行します:
 
-```
+```sh
 curl -I http://${EXTERNAL_IP}:${NODE_PORT}
 ```
 

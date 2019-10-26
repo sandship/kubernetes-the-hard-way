@@ -64,7 +64,7 @@ INTERNAL_IP=$(curl -s -H "Metadata-Flavor: Google" \
 
 systemdユニットファイル`kube-apiserver.service`を作成します:
 
-```
+```sh
 cat <<EOF | sudo tee /etc/systemd/system/kube-apiserver.service
 [Unit]
 Description=Kubernetes API Server
@@ -118,7 +118,7 @@ sudo mv kube-controller-manager.kubeconfig /var/lib/kubernetes/
 
 systemdユニットファイル`kube-controller-manager.service`を作成します:
 
-```
+```sh
 cat <<EOF | sudo tee /etc/systemd/system/kube-controller-manager.service
 [Unit]
 Description=Kubernetes Controller Manager
@@ -156,7 +156,7 @@ sudo mv kube-scheduler.kubeconfig /var/lib/kubernetes/
 
 設定ファイル`kube-scheduler.yaml`を作成します:
 
-```
+```sh
 cat <<EOF | sudo tee /etc/kubernetes/config/kube-scheduler.yaml
 apiVersion: kubescheduler.config.k8s.io/v1alpha1
 kind: KubeSchedulerConfiguration
@@ -169,7 +169,7 @@ EOF
 
 systemdユニットファイル`kube-scheduler.service`を作成します:
 
-```
+```sh
 cat <<EOF | sudo tee /etc/systemd/system/kube-scheduler.service
 [Unit]
 Description=Kubernetes Scheduler
@@ -212,7 +212,7 @@ sudo apt-get update
 sudo apt-get install -y nginx
 ```
 
-```
+```sh
 cat > kubernetes.default.svc.cluster.local <<EOF
 server {
   listen      80;
@@ -292,7 +292,7 @@ gcloud compute ssh controller-0
 
 `system:kube-apiserver-to-kubelet`という名前の[ClusterRole](https://kubernetes.io/docs/admin/authorization/rbac/#role-and-clusterrole)を作成し、Kubelet APIにアクセスしたり、Podの管理に関連する一般的なタスクを実行したりするための権限を付与します:
 
-```
+```sh
 cat <<EOF | kubectl apply --kubeconfig admin.kubeconfig -f -
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRole
@@ -320,7 +320,7 @@ Kubernetes APIサーバーは、`--kubelet-client-certificate`フラグで定義
 
 ClusterRole`system:kube-apiserver-to-kubelet`を`kubernetes`ユーザーにバインドします:
 
-```
+```sh
 cat <<EOF | kubectl apply --kubeconfig admin.kubeconfig -f -
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRoleBinding
@@ -348,7 +348,7 @@ EOF
 
 外部ロードバランサーネットワークリソースを作成します:
 
-```
+```sh
 {
   KUBERNETES_PUBLIC_ADDRESS=$(gcloud compute addresses describe kubernetes-the-hard-way \
     --region $(gcloud config get-value compute/region) \
@@ -398,7 +398,7 @@ curl --cacert ca.pem https://${KUBERNETES_PUBLIC_ADDRESS}:6443/version
 
 > 出力結果
 
-```
+```json
 {
   "major": "1",
   "minor": "15",

@@ -98,7 +98,7 @@ kubernetes-the-hard-way  us-west1  XX.XXX.XXX.XX  RESERVED
 
 Kubernetesコントロールプレーンをホストする3つのインスタンスを作成します:
 
-```
+```sh
 for i in 0 1 2; do
   gcloud compute instances create controller-${i} \
     --async \
@@ -122,7 +122,7 @@ done
 
 Kubernetesワーカーノードをホストするインスタンスを3つ作成します:
 
-```
+```sh
 for i in 0 1 2; do
   gcloud compute instances create worker-${i} \
     --async \

@@ -10,7 +10,7 @@ kubeconfigには接続先のKubernetes APIサーバーが必要です。高可�
 
 `admin`ユーザとして認証するのに適したkubeconfigファイルを生成します:
 
-```
+```sh
 {
   KUBERNETES_PUBLIC_ADDRESS=$(gcloud compute addresses describe kubernetes-the-hard-way \
     --region $(gcloud config get-value compute/region) \

@@ -26,8 +26,8 @@ kubelet用のkubeconfigファイルを生成する際、kubeletのノード名�
 
 各ワーカーノード用kubeconfigファイルを生成します:
 
-```
-for instance in worker-0 worker-1 worker-2; do
+```sh
+for instance in worker-{0..2}; do
   kubectl config set-cluster kubernetes-the-hard-way \
     --certificate-authority=ca.pem \
     --embed-certs=true \
@@ -194,16 +194,16 @@ admin.kubeconfig
 
 適切な`kubelet`及び`kube-proxy`用kubeconfigファイルを各ワーカーノード用インスタンスにコピーします:
 
-```
-for instance in worker-0 worker-1 worker-2; do
+```sh
+for instance in worker-{0..2}; do
   gcloud compute scp ${instance}.kubeconfig kube-proxy.kubeconfig ${instance}:~/
 done
 ```
 
 適切な`kube-controller-manager`及び`kube-scheduler`用kubeconfigファイルをコントロールプレーン用インスタンスにコピーします:
 
-```
-for instance in controller-0 controller-1 controller-2; do
+```sh
+for instance in controller-{0..2}; do
   gcloud compute scp admin.kubeconfig kube-controller-manager.kubeconfig kube-scheduler.kubeconfig ${instance}:~/
 done
 ```

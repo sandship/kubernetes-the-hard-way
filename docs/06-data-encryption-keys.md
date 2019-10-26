@@ -8,7 +8,7 @@ Kubernetesはクラスタの状態、アプリケーションの構成、機密�
 
 暗号化キーを生成します:
 
-```
+```sh
 ENCRYPTION_KEY=$(head -c 32 /dev/urandom | base64)
 ```
 
@@ -16,7 +16,7 @@ ENCRYPTION_KEY=$(head -c 32 /dev/urandom | base64)
 
 `encryption-config.yaml`という名前の暗号化コンフィグファイルを生成します:
 
-```
+```sh
 cat > encryption-config.yaml <<EOF
 kind: EncryptionConfig
 apiVersion: v1
@@ -34,8 +34,8 @@ EOF
 
 暗号化コンフィグファイル`encryption-config.yaml`を各コントロールプレーン用インスタンスにコピーします:
 
-```
-for instance in controller-0 controller-1 controller-2; do
+```sh
+for instance in controller-{0..2}; do
   gcloud compute scp encryption-config.yaml ${instance}:~/
 done
 ```

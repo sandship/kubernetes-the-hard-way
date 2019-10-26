@@ -98,7 +98,7 @@ POD_CIDR=$(curl -s -H "Metadata-Flavor: Google" \
 
 ネットワーク構成ファイル`bridge`を作成します:
 
-```
+```sh
 cat <<EOF | sudo tee /etc/cni/net.d/10-bridge.conf
 {
     "cniVersion": "0.3.1",
@@ -120,7 +120,7 @@ EOF
 
 ネットワーク構成ファイル`loopback`を作成します:
 
-```
+```sh
 cat <<EOF | sudo tee /etc/cni/net.d/99-loopback.conf
 {
     "cniVersion": "0.3.1",
@@ -138,7 +138,7 @@ EOF
 sudo mkdir -p /etc/containerd/
 ```
 
-```
+```sh
 cat << EOF | sudo tee /etc/containerd/config.toml
 [plugins]
   [plugins.cri.containerd]
@@ -152,7 +152,7 @@ EOF
 
 systemdユニットファイル`containerd.service`を作成します:
 
-```
+```sh
 cat <<EOF | sudo tee /etc/systemd/system/containerd.service
 [Unit]
 Description=containerd container runtime
@@ -188,7 +188,7 @@ EOF
 
 設定ファイル`kubelet-config.yaml`を作成します:
 
-```
+```sh
 cat <<EOF | sudo tee /var/lib/kubelet/kubelet-config.yaml
 kind: KubeletConfiguration
 apiVersion: kubelet.config.k8s.io/v1beta1
@@ -216,7 +216,7 @@ EOF
 
 systemdユニットファイル`kubelet.service`を作成します:
 
-```
+```sh
 cat <<EOF | sudo tee /etc/systemd/system/kubelet.service
 [Unit]
 Description=Kubernetes Kubelet
@@ -250,7 +250,7 @@ sudo mv kube-proxy.kubeconfig /var/lib/kube-proxy/kubeconfig
 
 設定ファイル`kube-proxy-config.yaml`を作成します:
 
-```
+```sh
 cat <<EOF | sudo tee /var/lib/kube-proxy/kube-proxy-config.yaml
 kind: KubeProxyConfiguration
 apiVersion: kubeproxy.config.k8s.io/v1alpha1
@@ -263,7 +263,7 @@ EOF
 
 systemdユニットファイル`kube-proxy.service`を作成します:
 
-```
+```sh
 cat <<EOF | sudo tee /etc/systemd/system/kube-proxy.service
 [Unit]
 Description=Kubernetes Kube Proxy
