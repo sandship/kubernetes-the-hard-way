@@ -10,7 +10,7 @@
 
 kubeconfigには接続先のKubernetes APIサーバーが必要です。高可用性をサポートするために、Kubernetes APIサーバの前面に配置した外部ロードバランサに割り当てられたIPアドレスが使用されます。
 
-静的IPアドレス`kubernetes-the-hard`を取得します:
+静的IPアドレス`kubernetes-the-hard-way`を取得します:
 
 ```
 KUBERNETES_PUBLIC_ADDRESS=$(gcloud compute addresses describe kubernetes-the-hard-way \
