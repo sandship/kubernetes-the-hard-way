@@ -148,7 +148,7 @@ EOF
 
 ### Kubernetesスケジューラーの設定
 
-kubeconfig``kube-scheduler`を以下の場所に配置します:
+kubeconfig`kube-scheduler`を以下の場所に配置します:
 
 ```
 sudo mv kube-scheduler.kubeconfig /var/lib/kubernetes/
