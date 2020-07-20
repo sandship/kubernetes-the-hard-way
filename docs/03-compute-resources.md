@@ -63,9 +63,9 @@ gcloud compute firewall-rules list --filter="network:kubernetes-the-hard-way"
 > 出力結果
 
 ```
-NAME                                    NETWORK                  DIRECTION  PRIORITY  ALLOW                 DENY
-kubernetes-the-hard-way-allow-external  kubernetes-the-hard-way  INGRESS    1000      tcp:22,tcp:6443,icmp
-kubernetes-the-hard-way-allow-internal  kubernetes-the-hard-way  INGRESS    1000      tcp,udp,icmp
+NAME                                    NETWORK                  DIRECTION  PRIORITY  ALLOW                 DENY  DISABLED
+kubernetes-the-hard-way-allow-external  kubernetes-the-hard-way  INGRESS    1000      tcp:22,tcp:6443,icmp        False
+kubernetes-the-hard-way-allow-internal  kubernetes-the-hard-way  INGRESS    1000      tcp,udp,icmp                Fals
 ```
 
 ### Kubernetesの公開IPアドレス
@@ -86,13 +86,13 @@ gcloud compute addresses list --filter="name=('kubernetes-the-hard-way')"
 > 出力結果
 
 ```
-NAME                     REGION    ADDRESS        STATUS
-kubernetes-the-hard-way  us-west1  XX.XXX.XXX.XX  RESERVED
+NAME                     ADDRESS/RANGE   TYPE      PURPOSE  NETWORK  REGION    SUBNET  STATUS
+kubernetes-the-hard-way  XX.XXX.XXX.XXX  EXTERNAL                    us-west1          RESERVED
 ```
 
 ## インスタンス
 
-本実習のインスタンスでは、コンテナランタイムの[containerd](https://github.com/containerd/containerd)にて推奨される[Ubuntu Server](https://www.ubuntu.com/server) 18.04を使用します。各インスタンスは、Kubernetesのブートストラッピング処理を単純化するために、固定のプライベートIPアドレスでプロビジョニングされます。
+本実習のインスタンスでは、コンテナランタイムの[containerd](https://github.com/containerd/containerd)にて推奨される[Ubuntu Server](https://www.ubuntu.com/server) 20.04を使用します。各インスタンスは、Kubernetesのブートストラッピング処理を単純化するために、固定のプライベートIPアドレスでプロビジョニングされます。
 
 ### Kubernetesコントロールプレーン
 
@@ -104,9 +104,9 @@ for i in 0 1 2; do
     --async \
     --boot-disk-size 200GB \
     --can-ip-forward \
-    --image-family ubuntu-1804-lts \
+    --image-family ubuntu-2004-lts \
     --image-project ubuntu-os-cloud \
-    --machine-type n1-standard-1 \
+    --machine-type e2-standard-2 \
     --private-network-ip 10.240.0.1${i} \
     --scopes compute-rw,storage-ro,service-management,service-control,logging-write,monitoring \
     --subnet kubernetes \
@@ -128,9 +128,9 @@ for i in 0 1 2; do
     --async \
     --boot-disk-size 200GB \
     --can-ip-forward \
-    --image-family ubuntu-1804-lts \
+    --image-family ubuntu-2004-lts \
     --image-project ubuntu-os-cloud \
-    --machine-type n1-standard-1 \
+    --machine-type e2-standard-2 \
     --metadata pod-cidr=10.200.${i}.0/24 \
     --private-network-ip 10.240.0.2${i} \
     --scopes compute-rw,storage-ro,service-management,service-control,logging-write,monitoring \
@@ -144,19 +144,19 @@ done
 デフォルトのゾーン内にあるインスタンスの一覧を表示します:
 
 ```
-gcloud compute instances list
+gcloud compute instances list --filter="tags.items=kubernetes-the-hard-way"
 ```
 
 > 出力結果
 
 ```
-NAME          ZONE        MACHINE_TYPE   PREEMPTIBLE  INTERNAL_IP  EXTERNAL_IP     STATUS
-controller-0  us-west1-c  n1-standard-1               10.240.0.10  XX.XXX.XXX.XXX  RUNNING
-controller-1  us-west1-c  n1-standard-1               10.240.0.11  XX.XXX.X.XX     RUNNING
-controller-2  us-west1-c  n1-standard-1               10.240.0.12  XX.XXX.XXX.XX   RUNNING
-worker-0      us-west1-c  n1-standard-1               10.240.0.20  XXX.XXX.XXX.XX  RUNNING
-worker-1      us-west1-c  n1-standard-1               10.240.0.21  XX.XXX.XX.XXX   RUNNING
-worker-2      us-west1-c  n1-standard-1               10.240.0.22  XXX.XXX.XX.XX   RUNNING
+NAME          ZONE        MACHINE_TYPE   PREEMPTIBLE  INTERNAL_IP  EXTERNAL_IP    STATUS
+controller-0  us-west1-c  e2-standard-2               10.240.0.10  XX.XX.XX.XXX   RUNNING
+controller-1  us-west1-c  e2-standard-2               10.240.0.11  XX.XXX.XXX.XX  RUNNING
+controller-2  us-west1-c  e2-standard-2               10.240.0.12  XX.XXX.XX.XXX  RUNNING
+worker-0      us-west1-c  e2-standard-2               10.240.0.20  XX.XX.XXX.XXX  RUNNING
+worker-1      us-west1-c  e2-standard-2               10.240.0.21  XX.XX.XX.XXX   RUNNING
+worker-2      us-west1-c  e2-standard-2               10.240.0.22  XX.XXX.XX.XX   RUNNING
 ```
 
 ## SSHアクセスの設定
@@ -208,10 +208,8 @@ Waiting for SSH key to propagate.
 SSHキーが更新されると`controller-0`インスタンスにログインします:
 
 ```
-Welcome to Ubuntu 18.04.3 LTS (GNU/Linux 4.15.0-1042-gcp x86_64)
+Welcome to Ubuntu 20.04 LTS (GNU/Linux 5.4.0-1019-gcp x86_64)
 ...
-
-Last login: Sun Sept 14 14:34:27 2019 from XX.XXX.XXX.XX
 ```
 
 ターミナルで`exit`と入力し、`controller-0`インスタンスを終了します:
@@ -223,7 +221,7 @@ $USER@controller-0:~$ exit
 
 ```
 logout
-Connection to XX.XXX.XXX.XXX closed
+Connection to XX.XX.XX.XXX closed
 ```
 
 Next: [CA証明書のプロビジョニングとTLS証明書の生成](04-certificate-authority.md)

@@ -4,7 +4,7 @@
 
 本チュートリアルでは、Kubernetesクラスターのブートストラップに必要な計算資源のプロビジョニングを一から効率的に行うために[Google Cloud Platform](https://cloud.google.com/)を活用しています。300ドル分の無料クレジットに[サインアップ](https://cloud.google.com/free/)してください。
 
-本チュートリアルの[推定実行コスト](https://cloud.google.com/products/calculator/#id=55663256-c384-449c-9306-e39893e23afb)は1時間あたり$0.23(1日あたり$5.46)です。
+本チュートリアルの[推定実行コスト](https://cloud.google.com/products/calculator#id=873932bc-0840-4176-b0fa-a8cfd4ca61ae)は1時間あたり$0.23(1日あたり$5.50)です。
 
 > 本チュートリアルに必要な計算資源は、Google Cloud Platformの無料枠を超えています。
 
@@ -14,7 +14,7 @@
 
 Google Cloud SDKの[ドキュメント](https://cloud.google.com/sdk/)に従って `gcloud` コマンドをインストールし、設定してください。
 
-Google Cloud SDKのバージョンが262.0.0以上であることを確認してください:
+Google Cloud SDKのバージョンが301.0.0以上であることを確認してください:
 
 ```
 gcloud version
