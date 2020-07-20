@@ -1,6 +1,6 @@
 # Kubernetes The Hard Way(日本語版)
 
-### 【注意】この翻訳は、1.15.3時点で動作が確認できているバージョンの凍結版です。動作確認できた次のバージョンがリリースされない限り、しばらくの間更新の予定はありません。Typoや誤訳などを見つけた場合はPR、Issue、または[Twitter](https://twitter.com/_inductor_)にてお知らせください。
+### 【注意】この翻訳は、1.18.6時点で動作が確認できているバージョンの凍結版です。動作確認できた次のバージョンがリリースされない限り、しばらくの間更新の予定はありません。Typoや誤訳などを見つけた場合はPR、Issue、または[Twitter](https://twitter.com/_inductor_)にてお知らせください。
 
 本チュートリアルでは、Kubernetesを地道にセットアップする方法を説明します。本ガイドは、Kubernetesクラスターを立てるための自動化コマンドを探している人には向いていません。そういう人は、[Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine)や[Getting Started Guides](https://kubernetes.io/docs/setup)を御覧ください。
 
@@ -21,11 +21,11 @@ Kubernetes The Hard Wayは勉強に適しています。長い道のりを経て
 
 Kubernetes The Hard Wayは、コンポーネント間のエンドツーエンドの暗号化とRBAC認証を使用して、可用性の高いKubernetesクラスターをブートストラップする手順を説明します。
 
-* [kubernetes](https://github.com/kubernetes/kubernetes) v1.15.3
-* [containerd](https://github.com/containerd/containerd) v1.2.9
-* [coredns](https://github.com/coredns/coredns) v1.6.3
-* [cni](https://github.com/containernetworking/cni) v0.7.1
-* [etcd](https://github.com/coreos/etcd) v3.4.0
+* [kubernetes](https://github.com/kubernetes/kubernetes) v1.18.6
+* [containerd](https://github.com/containerd/containerd) v1.3.6
+* [coredns](https://github.com/coredns/coredns) v1.7.0
+* [cni](https://github.com/containernetworking/cni) v0.8.6
+* [etcd](https://github.com/coreos/etcd) v3.4.10
 
 ## 実習内容
 
