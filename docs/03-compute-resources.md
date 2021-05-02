@@ -208,7 +208,7 @@ Waiting for SSH key to propagate.
 SSHキーが更新されると`controller-0`インスタンスにログインします:
 
 ```
-Welcome to Ubuntu 20.04 LTS (GNU/Linux 5.4.0-1019-gcp x86_64)
+Welcome to Ubuntu 20.04.2 LTS (GNU/Linux 5.4.0-1042-gcp x86_64)
 ...
 ```
 

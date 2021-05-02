@@ -35,21 +35,17 @@ kubeconfigには接続先のKubernetes APIサーバーが必要です。高可�
 
 ## 検証
 
-リモートにあるKubernetesクラスターの状態を確認します:
+リモートにあるKubernetesクラスターのバージョンを確認します:
 
 ```
-kubectl get componentstatuses
+kubectl version
 ```
 
 > 出力結果
 
 ```
-NAME                 STATUS    MESSAGE             ERROR
-scheduler            Healthy   ok
-controller-manager   Healthy   ok
-etcd-0               Healthy   {"health":"true"}
-etcd-1               Healthy   {"health":"true"}
-etcd-2               Healthy   {"health":"true"}
+Client Version: version.Info{Major:"1", Minor:"21", GitVersion:"v1.21.0", GitCommit:"cb303e613a121a29364f75cc67d3d580833a7479", GitTreeState:"clean", BuildDate:"2021-04-08T16:31:21Z", GoVersion:"go1.16.1", Compiler:"gc", Platform:"linux/amd64"}
+Server Version: version.Info{Major:"1", Minor:"21", GitVersion:"v1.21.0", GitCommit:"cb303e613a121a29364f75cc67d3d580833a7479", GitTreeState:"clean", BuildDate:"2021-04-08T16:25:06Z", GoVersion:"go1.16.1", Compiler:"gc", Platform:"linux/amd64"}
 ```
 
 リモートにあるKubernetesクラスター上にあるノードの一覧を表示します:
@@ -62,9 +58,9 @@ kubectl get nodes
 
 ```
 NAME       STATUS   ROLES    AGE     VERSION
-worker-0   Ready    <none>   2m30s   v1.18.6
-worker-1   Ready    <none>   2m30s   v1.18.6
-worker-2   Ready    <none>   2m30s   v1.18.6
+worker-0   Ready    <none>   2m35s   v1.21.0
+worker-1   Ready    <none>   2m35s   v1.21.0
+worker-2   Ready    <none>   2m35s   v1.21.0
 ```
 
 Next: [Podが使うネットワーク経路のプロビジョニング](11-pod-network-routes.md)

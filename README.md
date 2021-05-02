@@ -21,11 +21,11 @@ Kubernetes The Hard Wayは勉強に適しています。長い道のりを経て
 
 Kubernetes The Hard Wayは、コンポーネント間のエンドツーエンドの暗号化とRBAC認証を使用して、可用性の高いKubernetesクラスターをブートストラップする手順を説明します。
 
-* [kubernetes](https://github.com/kubernetes/kubernetes) v1.18.6
-* [containerd](https://github.com/containerd/containerd) v1.3.6
-* [coredns](https://github.com/coredns/coredns) v1.7.0
-* [cni](https://github.com/containernetworking/cni) v0.8.6
-* [etcd](https://github.com/coreos/etcd) v3.4.10
+* [kubernetes](https://github.com/kubernetes/kubernetes) v1.21.0
+* [containerd](https://github.com/containerd/containerd) v1.4.4
+* [coredns](https://github.com/coredns/coredns) v1.8.3
+* [cni](https://github.com/containernetworking/cni) v0.9.1
+* [etcd](https://github.com/etcd-io/etcd) v3.4.15
 
 ## 実習内容
 

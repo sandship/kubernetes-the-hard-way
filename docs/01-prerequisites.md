@@ -14,7 +14,7 @@
 
 Google Cloud SDKの[ドキュメント](https://cloud.google.com/sdk/)に従って `gcloud` コマンドをインストールし、設定してください。
 
-Google Cloud SDKのバージョンが301.0.0以上であることを確認してください:
+Google Cloud SDKのバージョンが338.0.0以上であることを確認してください:
 
 ```
 gcloud version
