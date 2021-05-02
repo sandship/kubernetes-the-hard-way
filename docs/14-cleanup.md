@@ -55,7 +55,7 @@ gcloud -q compute firewall-rules delete \
 }
 ```
 
-Delete the `kubernetes-the-hard-way` compute address:
+compute address用に確保した`kubernetes-the-hard-way`を削除します:
 
 ```
 gcloud -q compute addresses delete kubernetes-the-hard-way \
